@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="152dip"
+    android:background="@drawable/night_biz_news_column_edit_bg_pressed"
+    >
+
+    <ImageView
+        android:id="@+id/left_categroy_item_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dip"
+        android:src="@drawable/biz_navigation_tab_news"/>
+    <TextView
+        android:id="@+id/left_category_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dip"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="55dip"
+        android:layout_toRightOf="@id/left_categroy_item_img"
+        android:text="@string/left_category_name_history"
+        android:textColor="@color/white"
+        />
+    <TextView
+        android:id="@+id/left_category_item_ename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/left_category_item_name"
+        android:layout_below="@id/left_category_item_name"
+        android:layout_toRightOf="@id/left_categroy_item_img"
+        android:text="@string/left_category_ename_history"
+        android:textColor="@color/white"
+        android:textSize="15sp"/>
+
+</RelativeLayout>

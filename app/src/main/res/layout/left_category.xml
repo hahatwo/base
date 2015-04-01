@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--左边缘滑出界面的xml文档 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/left_category_id"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/mintcream"
+    android:orientation="vertical">
+    <!-- android:background="@drawable/biz_pics_menu_bg"-->
+
+    <ListView
+        android:id="@+id/listview_left_category"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"></ListView>
+
+</LinearLayout>

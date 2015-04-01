@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><!--这是小悬浮窗的xml文档-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_window_small"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <com.example.administrator.base.CustomWidget.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/window_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher"
+        app:riv_border_color="#333333"
+        app:riv_border_width="3dip"
+        app:riv_corner_radius="5dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="true"
+        app:riv_tile_mode="clamp" />
+
+    <TextView
+        android:id="@+id/memroy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/gray" />
+
+</LinearLayout>

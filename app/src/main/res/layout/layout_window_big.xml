@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?><!--大悬浮窗xml文件-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_window_big"
+    android:layout_width="fill_parent"
+    android:layout_height="80dip"
+    android:background="@color/blueviolet"
+    android:orientation="horizontal">
+
+    <com.example.administrator.base.CustomWidget.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/roundImage_enter"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/photo1"
+        app:riv_border_color="#333333"
+        app:riv_border_width="3dip"
+        app:riv_corner_radius="5dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="false"
+        app:riv_tile_mode="clamp" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="返回"
+        android:textColor="@color/lawngreen" />
+
+    <ImageView
+        android:id="@+id/close_window_big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/btn_close_normal" />
+</LinearLayout>

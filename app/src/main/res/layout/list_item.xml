@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tvbad"
+        android:layout_width="360dip"
+        android:layout_height="45dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:text="@string/list_item_tv"
+        android:textSize="20sp" />
+
+    <ToggleButton
+        android:id="@+id/tbbad"
+        android:layout_width="wrap_content"
+        android:layout_height="45dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/tvbad"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textStyle="bold" />
+
+</RelativeLayout>
