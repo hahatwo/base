@@ -17,11 +17,11 @@ public class ItemCategoryModel {
         super();
         this.id = id;
         this.name = name;
-        this.e_name =e_name;
+        this.e_name = e_name;
     }
 
     /*得到图片资源ID的方法*/
-    public Integer getId(){
+    public Integer getId() {
         return id;
     }
 

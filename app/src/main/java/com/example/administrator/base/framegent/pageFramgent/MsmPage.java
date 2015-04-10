@@ -29,36 +29,37 @@ import java.util.HashMap;
  * Created by Administrator on 2014/12/25.
  */
 public class MsmPage extends Fragment {
-    private View msmpage_view;
-    private Context msmpage_context;
-    private ListView msmpage_listview;
     DataBaseHelper helper;
     SimpleAdapter adapter;
     ArrayList<HashMap<String, String>> dataList = new ArrayList<HashMap<String, String>>();
+    private View msmpage_view;
+    private Context msmpage_context;
+    private ListView msmpage_listview;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       //return inflater.inflate(R.layout.msm_framelayout, null);
-        if(msmpage_view==null){
-            msmpage_view=inflater.inflate(R.layout.msm_framelayout,container,false);
-            msmpage_context=msmpage_view.getContext();
+        //return inflater.inflate(R.layout.msm_framelayout, null);
+        if (msmpage_view == null) {
+            msmpage_view = inflater.inflate(R.layout.msm_framelayout, container, false);
+            msmpage_context = msmpage_view.getContext();
 
             initView();
             bindData();
 
         }
         return msmpage_view;
-        }
+    }
 
     private void initView() {
-        msmpage_listview=(ListView)msmpage_view.findViewById(R.id.msm_framelayout_list);
+        msmpage_listview = (ListView) msmpage_view.findViewById(R.id.msm_framelayout_list);
         helper = new DataBaseHelper(msmpage_context, "FakeBase");
         SQLiteDatabase db = helper.getReadableDatabase();
         try {
             Cursor cursor = db.rawQuery("SELECT * FROM msg_table", null);
             cursor.moveToFirst();
             System.out.print(" 数据库中的行数" + cursor.getCount());
-            do{
-                if(cursor.getCount()>0){
+            do {
+                if (cursor.getCount() > 0) {
                     String number = cursor.getString(cursor.getColumnIndex("recievenum"));
                     String body = cursor.getString(cursor.getColumnIndex("recievebody"));
                     HashMap<String, String> map = new HashMap<String, String>();
@@ -66,7 +67,7 @@ public class MsmPage extends Fragment {
                     map.put("body", body);
                     dataList.add(map);
                 }
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -77,7 +78,7 @@ public class MsmPage extends Fragment {
     }
 
 
-    private void  bindData(){
+    private void bindData() {
         adapter = new SimpleAdapter(msmpage_context, dataList, R.layout.dealmsg_list_item, new String[]{"number", "body"},
                 new int[]{R.id.deal_num, R.id.deal_body});
         //添加并且显示

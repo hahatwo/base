@@ -79,11 +79,10 @@ public class MainActivity extends SlidingFragmentActivity {
     }
 
     private void initvaliData() {
-       // Intent intent=new Intent(MainActivity.this, WindowService.class);
-       // startService(intent);
+        // Intent intent=new Intent(MainActivity.this, WindowService.class);
+        // startService(intent);
 
     }
-
 
 
     private void initListener() {

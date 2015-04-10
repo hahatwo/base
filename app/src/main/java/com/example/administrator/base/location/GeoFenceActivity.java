@@ -25,6 +25,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class GeoFenceActivity extends Activity {
+    public Handler MessageHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            // TODO Auto-generated method stub
+            super.handleMessage(msg);
+            logMsg.setText(msg.getData().getString("msg"));
+
+            adapter.notifyDataSetChanged();
+        }
+
+    };
     private LocationClient mLocationClient;
     private GeofenceClient mGeofenceClient;
     private AddGeofenceListener listener;
@@ -58,22 +70,9 @@ public class GeoFenceActivity extends Activity {
         geoFenceList.setAdapter(adapter);
         fence = new Geofence();
         mGeofenceClient.registerGeofenceTriggerListener(fence);
-       // mLocationClient.requestLocation();
+        // mLocationClient.requestLocation();
         //mLocationClient.start();
     }
-
-    public Handler MessageHandler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            // TODO Auto-generated method stub
-            super.handleMessage(msg);
-            logMsg.setText(msg.getData().getString("msg"));
-
-            adapter.notifyDataSetChanged();
-        }
-
-    };
 
     @Override
     protected void onStart() {
@@ -113,6 +112,10 @@ public class GeoFenceActivity extends Activity {
     protected void onStop() {
         // TODO Auto-generated method stub
         super.onStop();
+    }
+
+    private void setData(String str) {
+        getIDList.add(str);
     }
 
     public class AddGeofenceListener implements com.baidu.location.GeofenceClient.OnAddBDGeofencesResultListener {
@@ -167,10 +170,6 @@ public class GeoFenceActivity extends Activity {
             MessageHandler.sendMessage(msg);
         }
 
-    }
-
-    private void setData(String str) {
-        getIDList.add(str);
     }
 
     public class RemoveFenceListener implements com.baidu.location.GeofenceClient.OnRemoveBDGeofencesResultListener {

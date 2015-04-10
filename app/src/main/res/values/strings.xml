@@ -45,6 +45,7 @@
         <item>是否漫游</item>
     </array>
 
+    <string name="notificain">通知栏</string>
     <string name="startlocation">开启定位</string>
     <string name="stoplocation">停止定位</string>
     <string name="error_code_desc">错误码说明</string>

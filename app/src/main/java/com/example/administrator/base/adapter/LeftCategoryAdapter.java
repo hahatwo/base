@@ -24,15 +24,15 @@ public class LeftCategoryAdapter extends BaseAdapter {
     private Context mContext;
     private List<ItemCategoryModel> mLists;
     private LayoutInflater mLayoutInflater;
-    private  int height;
+    private int height;
 
 
     public LeftCategoryAdapter(Context mContext, List<ItemCategoryModel> mLists) {
         this.mContext = mContext;
         this.mLists = mLists;
         mLayoutInflater = LayoutInflater.from(this.mContext);
-        WindowManager windowManager=(WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
-        height=windowManager.getDefaultDisplay().getHeight();
+        WindowManager windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        height = windowManager.getDefaultDisplay().getHeight();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class LeftCategoryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         Holder _Holder = null;
-        LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,height/7);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, height / 7);
 
         if (convertView == null) {
             _Holder = new Holder();

@@ -26,16 +26,9 @@ public class ListViewAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
 
-    //自定义ListView控件
-    private static class Holder{
-        ImageView imgItem_list;
-        TextView titleItem_list;
-        TextView textItem_list;
-    }
-
-    public  ListViewAdapter(Context context, List<Map<String, Object>> listItems) {
-       this.context=context;
-        inflater=LayoutInflater.from(this.context);
+    public ListViewAdapter(Context context, List<Map<String, Object>> listItems) {
+        this.context = context;
+        inflater = LayoutInflater.from(this.context);
         this.listItems = listItems;
     }
 
@@ -56,20 +49,26 @@ public class ListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Holder _Holder=null;
-        if(convertView==null){
-            _Holder=new Holder();
-            convertView=inflater.inflate(R.layout.list_view,null);
-            _Holder.imgItem_list=(ImageView)convertView.findViewById(R.id.imgItem);
-            _Holder.titleItem_list=(TextView)convertView.findViewById(R.id.titleItem);
-            _Holder.textItem_list=(TextView)convertView.findViewById(R.id.textItem);
+        Holder _Holder = null;
+        if (convertView == null) {
+            _Holder = new Holder();
+            convertView = inflater.inflate(R.layout.list_view, null);
+            _Holder.imgItem_list = (ImageView) convertView.findViewById(R.id.imgItem);
+            _Holder.titleItem_list = (TextView) convertView.findViewById(R.id.titleItem);
+            _Holder.textItem_list = (TextView) convertView.findViewById(R.id.textItem);
             convertView.setTag(_Holder);
-        }
-        else _Holder=(Holder)convertView.getTag();
+        } else _Holder = (Holder) convertView.getTag();
         _Holder.imgItem_list.setBackgroundResource((Integer) listItems.get(position).get("imgItem_list"));
-        _Holder.titleItem_list.setText((String)listItems.get(position).get("titleItem_list"));
-        _Holder.textItem_list.setText((String)listItems.get(position).get("textItem_list"));
+        _Holder.titleItem_list.setText((String) listItems.get(position).get("titleItem_list"));
+        _Holder.textItem_list.setText((String) listItems.get(position).get("textItem_list"));
         return convertView;
+    }
+
+    //自定义ListView控件
+    private static class Holder {
+        ImageView imgItem_list;
+        TextView titleItem_list;
+        TextView textItem_list;
     }
 
 

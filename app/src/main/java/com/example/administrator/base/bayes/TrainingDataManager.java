@@ -19,8 +19,6 @@ import android.os.Environment;
  */
 
 public class TrainingDataManager {
-    private String[] traningFileClassifications;//训练语料分类集合
-    private File traningTextDir;//训练语料存放目录
     private static String defaultPath = Environment.getExternalStorageDirectory() + "/trainingTest";
     private static String adpath = Environment.getExternalStorageDirectory() + "/trainingTest/广告类/ad.txt";
     private static String cheatpath = Environment.getExternalStorageDirectory() + "/trainingTest/诈骗类/cheat.txt";
@@ -32,6 +30,8 @@ public class TrainingDataManager {
             "幸运码", "机号", "幸运观众", "违章", "代孕", "港商", "违约",
             "银行", "建行", "工商", "农行", "卡号", "抽中", "抽奖", "法院", "窃听",
             "有奖", "抽奖", "发售", "账号", "详情", "咨询"};
+    private String[] traningFileClassifications;//训练语料分类集合
+    private File traningTextDir;//训练语料存放目录
 
     public TrainingDataManager() {
 
@@ -74,6 +74,29 @@ public class TrainingDataManager {
 
         this.traningFileClassifications = traningTextDir.list();
         System.out.println("当前目录数: " + traningTextDir.list().length);
+    }
+
+    /**
+     * 返回给定路径的文本文件内容
+     *
+     * @param filePath 给定的文本文件路径
+     * @return 文本内容
+     * @throws java.io.FileNotFoundException
+     * @throws java.io.IOException
+     */
+    public static String getText(String filePath) throws IOException {
+
+        InputStreamReader isReader = new InputStreamReader(new FileInputStream(filePath));
+        BufferedReader reader = new BufferedReader(isReader);
+        String aline;
+        StringBuilder sb = new StringBuilder();
+
+        while ((aline = reader.readLine()) != null) {
+            sb.append(aline).append(" ");
+        }
+        isReader.close();
+        reader.close();
+        return sb.toString().trim();//trim--删除字符串首尾的空白
     }
 
     private void createFile(String filepath, String[] type) {
@@ -120,29 +143,6 @@ public class TrainingDataManager {
             ret[i] = traningTextDir.getPath() + File.separator + classification + File.separator + ret[i];
         }
         return ret;
-    }
-
-    /**
-     * 返回给定路径的文本文件内容
-     *
-     * @param filePath 给定的文本文件路径
-     * @return 文本内容
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
-     */
-    public static String getText(String filePath) throws IOException {
-
-        InputStreamReader isReader = new InputStreamReader(new FileInputStream(filePath));
-        BufferedReader reader = new BufferedReader(isReader);
-        String aline;
-        StringBuilder sb = new StringBuilder();
-
-        while ((aline = reader.readLine()) != null) {
-            sb.append(aline).append(" ");
-        }
-        isReader.close();
-        reader.close();
-        return sb.toString().trim();//trim--删除字符串首尾的空白
     }
 
     /**

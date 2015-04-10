@@ -2,7 +2,6 @@ package com.example.administrator.base.Service;
 
 
 import android.app.AlertDialog;
-
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -16,20 +15,19 @@ import android.telephony.gsm.GsmCellLocation;
 import android.widget.Toast;
 
 public class fbService extends Service {
-    private int test1 = 0; // 信号强度跳变
-    private int test2 = 0; // 信号强度太大
-    private int test3 = 0; // 频繁的Lac变化
-    private int test4 = 0; // Lac，Cid号比较可疑
-    private int test5 = 0;//短信中心号码匹配
-
-    private TelephonyManager tm;
-    private int signalbefore = 0, lacnow = 0, cidnow = 0, lacbefore = 0,
-            signalnow = 0;
     boolean lacchange = false, istimeover = false;
     GsmCellLocation gsmCellLocation;
     GsmCellLocation locationuse;
     long signaltime = 0, lactime = 0;
     boolean isbasereal = true;
+    private int test1 = 0; // 信号强度跳变
+    private int test2 = 0; // 信号强度太大
+    private int test3 = 0; // 频繁的Lac变化
+    private int test4 = 0; // Lac，Cid号比较可疑
+    private int test5 = 0;//短信中心号码匹配
+    private TelephonyManager tm;
+    private int signalbefore = 0, lacnow = 0, cidnow = 0, lacbefore = 0,
+            signalnow = 0;
 
     // 绑定客户端，Service默认服务
     public IBinder onBind(Intent intent) {
@@ -40,6 +38,7 @@ public class fbService extends Service {
 
     @Override
     public void onCreate() {
+
         settest5();    //判断短信中心号码是否变化
         signaltime = System.currentTimeMillis();// 获取服务创建时的时间
         /********************************************************************************************************************************  */

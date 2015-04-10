@@ -24,6 +24,7 @@ import java.util.Map;
  * Created by Administrator on 2014/12/21.
  */
 public class PhonePage extends Fragment {
+    String MyLac, MyCellID, NeighborLac, NeighborCellID, NeighborStrength;
     private View phonepage_view;
     private Context phonepage_context;
     private ListView phonepage_listview;
@@ -34,7 +35,6 @@ public class PhonePage extends Fragment {
     private String[] listview_text;//listview信息
     private TelephonyManager telephony;
     private GsmCellLocation gsmcelllocation;
-    String MyLac, MyCellID, NeighborLac, NeighborCellID , NeighborStrength;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,8 +43,8 @@ public class PhonePage extends Fragment {
         if (phonepage_view == null) {
             phonepage_view = inflater.inflate(R.layout.phone_framelayout, container, false);
             phonepage_context = phonepage_view.getContext();
-            telephony =(TelephonyManager)phonepage_context.getSystemService(Context.TELEPHONY_SERVICE);
-            gsmcelllocation = (GsmCellLocation)telephony.getCellLocation();
+            telephony = (TelephonyManager) phonepage_context.getSystemService(Context.TELEPHONY_SERVICE);
+            gsmcelllocation = (GsmCellLocation) telephony.getCellLocation();
             /**通过GsmCellLocation获取中国移动和联通 LAC 和cellID */
             MyLac = "" + gsmcelllocation.getLac();
             MyCellID = "" + gsmcelllocation.getCid();
@@ -53,7 +53,7 @@ public class PhonePage extends Fragment {
             List<NeighboringCellInfo> infoLists = telephony.getNeighboringCellInfo();
             for (NeighboringCellInfo info : infoLists) {
                 strength += (-133 + 2 * info.getRssi());// 获取邻区基站信号强度
-                NeighborLac =""+info.getLac();// 取出当前邻区的LAC
+                NeighborLac = "" + info.getLac();// 取出当前邻区的LAC
                 NeighborCellID = "" + info.getCid();// 取出当前邻区的CID
                 NeighborStrength = "" + strength;
             }

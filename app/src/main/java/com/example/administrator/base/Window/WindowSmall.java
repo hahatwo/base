@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
  * 记录小悬浮窗的参数
  * Created by Administrator on 2015/3/22.
  */
-public class WindowSmall extends LinearLayout{
+public class WindowSmall extends LinearLayout {
 
 
     /**
@@ -87,8 +87,8 @@ public class WindowSmall extends LinearLayout{
         View view = findViewById(R.id.layout_window_small);
         viewWidth = view.getLayoutParams().width;
         viewHeight = view.getLayoutParams().height;
-        RoundedImageView roundedImageView=(RoundedImageView)findViewById(R.id.window_small);
-        TextView memroy=(TextView)findViewById(R.id.memroy);
+        RoundedImageView roundedImageView = (RoundedImageView) findViewById(R.id.window_small);
+        TextView memroy = (TextView) findViewById(R.id.memroy);
         memroy.setText(MyWindowManager.getUsedPercentValue(context));
 
     }
@@ -104,7 +104,7 @@ public class WindowSmall extends LinearLayout{
                 yDownInScreen = event.getRawY() - getStatusBarHeight();
                 xInScreen = event.getRawX();
                 yInScreen = event.getRawY() - getStatusBarHeight();
-                time=System.currentTimeMillis()-event.getEventTime();     //event.getEventTime();
+                time = System.currentTimeMillis() - event.getEventTime();     //event.getEventTime();
                 break;
             case MotionEvent.ACTION_MOVE:
                 xInScreen = event.getRawX();
@@ -114,10 +114,10 @@ public class WindowSmall extends LinearLayout{
                 break;
             case MotionEvent.ACTION_UP:
                 // 如果手指离开屏幕时，xDownInScreen和xInScreen相等，且yDownInScreen和yInScreen相等，则视为触发了单击事件。
-               // if (xDownInScreen == xInScreen && yDownInScreen == yInScreen) {
-                    //openBigWindow();
-               // }
-                if(xDownInScreen == xInScreen && yDownInScreen == yInScreen){
+                // if (xDownInScreen == xInScreen && yDownInScreen == yInScreen) {
+                //openBigWindow();
+                // }
+                if (xDownInScreen == xInScreen && yDownInScreen == yInScreen) {
                     openBigWindow();
                 }
                 break;
@@ -130,8 +130,7 @@ public class WindowSmall extends LinearLayout{
     /**
      * 将小悬浮窗的参数传入，用于更新小悬浮窗的位置。
      *
-     * @param params
-     *            小悬浮窗的参数
+     * @param params 小悬浮窗的参数
      */
     public void setParams(WindowManager.LayoutParams params) {
         mParams = params;

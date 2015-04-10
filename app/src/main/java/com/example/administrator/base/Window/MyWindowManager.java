@@ -110,7 +110,7 @@ public class MyWindowManager {
                 bigWindowParams.y = screenHeight / 2 - WindowBig.viewHeight / 2;
                 bigWindowParams.type = WindowManager.LayoutParams.TYPE_PHONE;
                 bigWindowParams.format = PixelFormat.RGBA_8888;
-                bigWindowParams.gravity = Gravity.TOP|Gravity.LEFT;
+                bigWindowParams.gravity = Gravity.TOP | Gravity.LEFT;
                 bigWindowParams.width = WindowBig.viewWidth;
                 bigWindowParams.height = WindowBig.viewHeight;
             }
@@ -138,7 +138,7 @@ public class MyWindowManager {
      */
     public static void updateUsedPercent(Context context) {
         if (smallWindow != null) {
-            RoundedImageView roundedImageView=(RoundedImageView)smallWindow.findViewById(R.id.window_small);
+            RoundedImageView roundedImageView = (RoundedImageView) smallWindow.findViewById(R.id.window_small);
             TextView memroy = (TextView) smallWindow.findViewById(R.id.memroy);
             memroy.setText(getUsedPercentValue(context));
         }

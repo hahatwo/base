@@ -16,7 +16,7 @@ import com.example.administrator.base.Service.WindowService;
 /**
  * Created by Administrator on 2015/3/22.
  */
-public class WindowBig extends LinearLayout{
+public class WindowBig extends LinearLayout {
     /**
      * 记录大悬浮窗的宽度
      */
@@ -33,15 +33,15 @@ public class WindowBig extends LinearLayout{
         View view = findViewById(R.id.layout_window_big);
         viewWidth = view.getLayoutParams().width;
         viewHeight = view.getLayoutParams().height;
-        RoundedImageView roundedImage_enter=(RoundedImageView)findViewById(R.id.roundImage_enter);
+        RoundedImageView roundedImage_enter = (RoundedImageView) findViewById(R.id.roundImage_enter);
         Button back = (Button) findViewById(R.id.back);
-        ImageView close_window_big=(ImageView)findViewById(R.id.close_window_big);
+        ImageView close_window_big = (ImageView) findViewById(R.id.close_window_big);
         roundedImage_enter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 点击关闭悬浮窗的时候，移除所有悬浮窗，并停止Service
                 MyWindowManager.removeBigWindow(context);
-               // MyWindowManager.removeSmallWindow(context);
+                // MyWindowManager.removeSmallWindow(context);
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getContext().startActivity(intent);

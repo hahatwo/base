@@ -40,7 +40,7 @@ public class RoundedDrawable extends Drawable {
 
     public static final String TAG = "RoundedDrawable";
     public static final int DEFAULT_BORDER_COLOR = Color.BLACK;
-
+    private ColorStateList mBorderColor = ColorStateList.valueOf(DEFAULT_BORDER_COLOR);
     private final RectF mBounds = new RectF();
     private final RectF mDrawableRect = new RectF();
     private final RectF mBitmapRect = new RectF();
@@ -51,16 +51,13 @@ public class RoundedDrawable extends Drawable {
     private final RectF mBorderRect = new RectF();
     private final Paint mBorderPaint;
     private final Matrix mShaderMatrix = new Matrix();
-
     private BitmapShader mBitmapShader;
     private Shader.TileMode mTileModeX = Shader.TileMode.CLAMP;
     private Shader.TileMode mTileModeY = Shader.TileMode.CLAMP;
     private boolean mRebuildShader = true;
-
     private float mCornerRadius = 0;
     private boolean mOval = false;
     private float mBorderWidth = 0;
-    private ColorStateList mBorderColor = ColorStateList.valueOf(DEFAULT_BORDER_COLOR);
     private ScaleType mScaleType = ScaleType.FIT_CENTER;
 
     public RoundedDrawable(Bitmap bitmap) {
@@ -357,18 +354,18 @@ public class RoundedDrawable extends Drawable {
         return mBorderColor.getDefaultColor();
     }
 
+    public RoundedDrawable setBorderColor(ColorStateList colors) {
+        mBorderColor = colors != null ? colors : ColorStateList.valueOf(0);
+        mBorderPaint.setColor(mBorderColor.getColorForState(getState(), DEFAULT_BORDER_COLOR));
+        return this;
+    }
+
     public RoundedDrawable setBorderColor(int color) {
         return setBorderColor(ColorStateList.valueOf(color));
     }
 
     public ColorStateList getBorderColors() {
         return mBorderColor;
-    }
-
-    public RoundedDrawable setBorderColor(ColorStateList colors) {
-        mBorderColor = colors != null ? colors : ColorStateList.valueOf(0);
-        mBorderPaint.setColor(mBorderColor.getColorForState(getState(), DEFAULT_BORDER_COLOR));
-        return this;
     }
 
     public boolean isOval() {

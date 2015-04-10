@@ -27,7 +27,7 @@ import com.example.administrator.base.DataBaseHelper;
 import com.example.administrator.base.R;
 
 
-public class SetBad extends ActionBarActivity{
+public class SetBad extends ActionBarActivity {
     TextView textview;
     Button button;
     ListView listview;

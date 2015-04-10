@@ -34,6 +34,19 @@ public class LocationApplication extends Application {
         mVibrator = (Vibrator) getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
     }
 
+    /**
+     * 显示请求字符串
+     *
+     * @param str
+     */
+    public void logMsg(String str) {
+        try {
+            if (mLocationResult != null)
+                mLocationResult.setText(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 实现实位回调监听
@@ -75,21 +88,6 @@ public class LocationApplication extends Application {
         }
 
 
-    }
-
-
-    /**
-     * 显示请求字符串
-     *
-     * @param str
-     */
-    public void logMsg(String str) {
-        try {
-            if (mLocationResult != null)
-                mLocationResult.setText(str);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**

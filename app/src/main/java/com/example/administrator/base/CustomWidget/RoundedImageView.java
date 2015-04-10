@@ -34,16 +34,19 @@ import com.example.administrator.base.R;
 
 public class RoundedImageView extends ImageView {
 
+    public static final String TAG = "RoundedImageView";
+    public static final float DEFAULT_RADIUS = 0f;
+    private float cornerRadius = DEFAULT_RADIUS;
+    public static final float DEFAULT_BORDER_WIDTH = 0f;
+    private float borderWidth = DEFAULT_BORDER_WIDTH;
+    public static final Shader.TileMode DEFAULT_TILE_MODE = Shader.TileMode.CLAMP;
+    private Shader.TileMode tileModeX = DEFAULT_TILE_MODE;
+    private Shader.TileMode tileModeY = DEFAULT_TILE_MODE;
     // Constants for tile mode attributes
     private static final int TILE_MODE_UNDEFINED = -2;
     private static final int TILE_MODE_CLAMP = 0;
     private static final int TILE_MODE_REPEAT = 1;
     private static final int TILE_MODE_MIRROR = 2;
-
-    public static final String TAG = "RoundedImageView";
-    public static final float DEFAULT_RADIUS = 0f;
-    public static final float DEFAULT_BORDER_WIDTH = 0f;
-    public static final Shader.TileMode DEFAULT_TILE_MODE = Shader.TileMode.CLAMP;
     private static final ScaleType[] SCALE_TYPES = {
             ScaleType.MATRIX,
             ScaleType.FIT_XY,
@@ -54,16 +57,10 @@ public class RoundedImageView extends ImageView {
             ScaleType.CENTER_CROP,
             ScaleType.CENTER_INSIDE
     };
-
-    private float cornerRadius = DEFAULT_RADIUS;
-    private float borderWidth = DEFAULT_BORDER_WIDTH;
     private ColorStateList borderColor =
             ColorStateList.valueOf(RoundedDrawable.DEFAULT_BORDER_COLOR);
     private boolean isOval = false;
     private boolean mutateBackground = false;
-    private Shader.TileMode tileModeX = DEFAULT_TILE_MODE;
-    private Shader.TileMode tileModeY = DEFAULT_TILE_MODE;
-
     private ColorFilter mColorFilter = null;
     private boolean mHasColorFilter = false;
     private boolean mColorMod = false;
@@ -333,10 +330,6 @@ public class RoundedImageView extends ImageView {
         return cornerRadius;
     }
 
-    public void setCornerRadiusDimen(int resId) {
-        setCornerRadius(getResources().getDimension(resId));
-    }
-
     public void setCornerRadius(float radius) {
         if (cornerRadius == radius) {
             return;
@@ -348,12 +341,12 @@ public class RoundedImageView extends ImageView {
         invalidate();
     }
 
-    public float getBorderWidth() {
-        return borderWidth;
+    public void setCornerRadiusDimen(int resId) {
+        setCornerRadius(getResources().getDimension(resId));
     }
 
-    public void setBorderWidth(int resId) {
-        setBorderWidth(getResources().getDimension(resId));
+    public float getBorderWidth() {
+        return borderWidth;
     }
 
     public void setBorderWidth(float width) {
@@ -367,16 +360,12 @@ public class RoundedImageView extends ImageView {
         invalidate();
     }
 
+    public void setBorderWidth(int resId) {
+        setBorderWidth(getResources().getDimension(resId));
+    }
+
     public int getBorderColor() {
         return borderColor.getDefaultColor();
-    }
-
-    public void setBorderColor(int color) {
-        setBorderColor(ColorStateList.valueOf(color));
-    }
-
-    public ColorStateList getBorderColors() {
-        return borderColor;
     }
 
     public void setBorderColor(ColorStateList colors) {
@@ -391,6 +380,14 @@ public class RoundedImageView extends ImageView {
         if (borderWidth > 0) {
             invalidate();
         }
+    }
+
+    public void setBorderColor(int color) {
+        setBorderColor(ColorStateList.valueOf(color));
+    }
+
+    public ColorStateList getBorderColors() {
+        return borderColor;
     }
 
     public boolean isOval() {

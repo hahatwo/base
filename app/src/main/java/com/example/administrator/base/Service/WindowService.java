@@ -21,12 +21,12 @@ import java.util.TimerTask;
 /**
  * Created by Administrator on 2015/3/22.
  */
-public class WindowService extends Service{
+public class WindowService extends Service {
 
     /**
-    *用于线程中创建悬浮窗
+     * 用于线程中创建悬浮窗
      */
-    private Handler handler=new Handler();
+    private Handler handler = new Handler();
 
     /**
      * 创建定时器，定期检查是否创建或者移除悬浮窗
@@ -34,10 +34,10 @@ public class WindowService extends Service{
     private Timer timer;
 
     @Override
-    public int onStartCommand(Intent intent,int flags,int startId){
-        if(timer==null){
-            timer=new Timer();
-            timer.scheduleAtFixedRate(new RefreshTask(),0,500);
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (timer == null) {
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new RefreshTask(), 0, 500);
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -48,14 +48,14 @@ public class WindowService extends Service{
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         // Service被终止的同时也停止定时器继续运行
         timer.cancel();
         timer = null;
     }
 
-    class RefreshTask extends TimerTask{
+    class RefreshTask extends TimerTask {
         @Override
         public void run() {
 
@@ -93,9 +93,9 @@ public class WindowService extends Service{
         /*
         **判断当前界面是否为桌面
          */
-        private boolean isHome(){
+        private boolean isHome() {
 
-            ActivityManager activityManager=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+            ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
             List<ActivityManager.RunningTaskInfo> rti = activityManager.getRunningTasks(1);
             return getHomes().contains(rti.get(0).topActivity.getPackageName());
 
@@ -104,17 +104,17 @@ public class WindowService extends Service{
         /*
         **获得属于桌面应用的应用包名称
          */
-         private List<String> getHomes(){
-             List<String> names=new ArrayList<String>();
-             PackageManager packageManager=getPackageManager();
-             Intent intent=new Intent(Intent.ACTION_MAIN);
-             intent.addCategory(Intent.CATEGORY_HOME);
-             List<ResolveInfo> resolveInfo = packageManager.queryIntentActivities(intent,PackageManager.MATCH_DEFAULT_ONLY);
-           for (ResolveInfo ri : resolveInfo) {
-               names.add(ri.activityInfo.packageName);
-                 }
-             return names;
-         }
+        private List<String> getHomes() {
+            List<String> names = new ArrayList<String>();
+            PackageManager packageManager = getPackageManager();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            List<ResolveInfo> resolveInfo = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+            for (ResolveInfo ri : resolveInfo) {
+                names.add(ri.activityInfo.packageName);
+            }
+            return names;
+        }
     }
 
 }

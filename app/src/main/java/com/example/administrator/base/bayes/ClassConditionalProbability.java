@@ -19,8 +19,8 @@ package com.example.administrator.base.bayes;
  */
 
 public class ClassConditionalProbability {
-    private static TrainingDataManager tdm = new TrainingDataManager();
     private static final float M = 0F;
+    private static TrainingDataManager tdm = new TrainingDataManager();
 
     /**
      * 计算类条件概率

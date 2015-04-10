@@ -26,6 +26,19 @@ public class NotifyActivity extends Activity {
     private NotiftLocationListener listener;
     private double longtitude, latitude;
     private NotifyLister mNotifyLister;
+    private Handler notifyHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            // TODO Auto-generated method stub
+            super.handleMessage(msg);
+            mNotifyLister = new NotifyLister();
+            //4个参数代表要位置提醒的点的坐标，具体含义依次为：纬度，经度，距离范围，坐标系类型(gcj02,gps,bd09,bd09ll)
+            mNotifyLister.SetNotifyLocation(latitude, longtitude, 3000, "gcj02");
+            mLocationClient.registerNotify(mNotifyLister);
+        }
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,20 +82,6 @@ public class NotifyActivity extends Activity {
         listener = null;
 
     }
-
-    private Handler notifyHandler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            // TODO Auto-generated method stub
-            super.handleMessage(msg);
-            mNotifyLister = new NotifyLister();
-            //4个参数代表要位置提醒的点的坐标，具体含义依次为：纬度，经度，距离范围，坐标系类型(gcj02,gps,bd09,bd09ll)
-            mNotifyLister.SetNotifyLocation(latitude, longtitude, 3000, "gcj02");
-            mLocationClient.registerNotify(mNotifyLister);
-        }
-
-    };
 
     public class NotiftLocationListener implements BDLocationListener {
 
