@@ -39,14 +39,13 @@ public class MsgReceiver extends BroadcastReceiver {
     boolean trash = false;
     int flag = 0;
     private NotificationManager notificationManager;
-    private int NOTIFICATION= R.string.notificain;
+    private int NOTIFICATION = R.string.notificain;
 
     public void onReceive(Context context, Intent intent) {
         // 第一步、获取短信的内容和发件人
         sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
         StringBuilder body = new StringBuilder();// 短信内容
         StringBuilder number = new StringBuilder();// 短信发件人
-
 
         if (intent.getAction().equals(SMS_RECEIVED)) {
             Bundle bundle = intent.getExtras();
@@ -65,7 +64,6 @@ public class MsgReceiver extends BroadcastReceiver {
                     //伪基站短信判断
                     centernumber = currentMessage.getServiceCenterAddress();
                 }
-
                 //如果前后的centernum相同，则存储centernum的值；
                 if (isRealBase(centernumber)) {
                     SharedPreferences.Editor editor = sp.edit();
@@ -91,7 +89,7 @@ public class MsgReceiver extends BroadcastReceiver {
                 }
 
 
-/******************繁体字转化简体***************************************************************/
+/******************繁体字转化简体*********************************************************************/
                 Function function = new Function();
                 String[] a = function.to_SimpleByComplex(SmsBody);
                 SmsBody = a[0];
@@ -99,18 +97,13 @@ public class MsgReceiver extends BroadcastReceiver {
                 System.out.println("转化为简体后为：" + SmsBody);
                 //Body是未经处理过的原短信；
                 Body = SmsBody;
-/**********************************简繁转化***********************************************************/
-
-
-                /********************checkblack()方法检查黑名单号码和关键字并处理**************************************/
-
+/********************checkblack()方法检查黑名单号码和关键字并处理**************************************/
                 checkblack(context);
                 this.context = context;
                 if (trash)
                     dealtrash();
                 else {
-
-/******调用贝叶斯模块***********************************************************************************************/
+/******调用贝叶斯模块************************************************************************************/
                     SubThread subThread = new SubThread();
                     subThread.start();
                     try {
@@ -121,52 +114,46 @@ public class MsgReceiver extends BroadcastReceiver {
                 }
             }
         }
-
     }
 
-    //**********查找短信中是否含有自定义的黑名单和关键字******/
+    /**
+     * *******查找短信中是否含有自定义的黑名单和关键字*******************************************************
+     */
     public void checkblack(Context context) {
 /*******************处理字符串-----删除标点，去掉空格，停用词***************************************/
-        Pattern p = Pattern.compile("[~！@#￥%……&*（）——+·=、】【；‘，。/,.;'|}{、1234567890!$^` 啊我的个中或更您从自往朝向到在于当以为着对连同跟和与比把而地得着了过呢吗啊吧嘛所被喽哎哼喂哦呀恩嗯如请中的将是后那就好在今由]");// 增加对应的标点
+        Pattern p = Pattern.compile("[~！@#￥%……&*（）——+·=、】【；‘。/,.;'|}" +
+                "{、1234567890!$^` 啊我的个中或更您从自往朝向到在于当以为着对连同跟和与比把而地" +
+                "得着了过呢吗啊吧嘛所被喽哎哼喂哦呀恩嗯如请中的将是后那就好在今由]");// 增加对应的标点
         Matcher m = p.matcher(SmsBody);
         SmsBody = m.replaceAll(""); // 把英文标点符号替换成空，即去掉英文标点符号
         SmsBody = SmsBody.replaceAll(" ", "");
-/**************************删除停用词************************************************************************/
 
-/***********查找短信中是否含有自定义的黑名单和关键字*********************************************************************************/
-
-
+/***********查找短信中是否含有自定义的黑名单和关键字*********************************************************/
         DataBaseHelper dbhelp = new DataBaseHelper(context, "FakeBase");
         SQLiteDatabase dbh = dbhelp.getWritableDatabase();
         Cursor numcursor = dbh.rawQuery("SELECT * FROM num_table", null);
         Cursor wordcursor = dbh.rawQuery("SELECT * FROM word_table", null);
         numcursor.moveToFirst();
         wordcursor.moveToFirst();
-        do
-
-        {
-            //判断号码在不在黑名单中
+        do {   //判断号码在不在黑名单中
             if (numcursor.getCount() > 0) {
                 if (SmsNumber.contains(numcursor.getString(numcursor.getColumnIndex("badnum")))) {
                     //若包含则trash=true
                     trash = true;
-                    flag = 4;  //0代表正常短信，1代表垃圾短信，2代表伪基站短信，3代表诈骗短信，4代表黑名单
+                    flag = 1;  //0代表正常短信，1代表垃圾短信，2代表伪基站短信，3代表诈骗短信，4代表黑名单
                     System.out.print("Reciever里面的flag======== " + flag);
                     break;
                 }
             }
         }
-
         while (numcursor.moveToNext());
         //判断短信中是否含有自定义的拦截关键字
-        do
-
-        {
+        do {
             if (wordcursor.getCount() > 0) {
                 if (SmsBody.contains(wordcursor.getString(wordcursor.getColumnIndex("badword")))) {
                     //若包含则trash=true
                     trash = true;
-                    flag = 4;  //0代表正常短信，1代表垃圾短信，2代表伪基站短信，3代表诈骗短信，4代表黑名单
+                    flag = 1;  //0代表正常短信，1代表垃圾短信，2代表伪基站短信，3代表诈骗短信，4代表黑名单
                     System.out.print("Reciever里面的flag======== " + flag);
                     break;
                 }
@@ -174,18 +161,11 @@ public class MsgReceiver extends BroadcastReceiver {
         } while (wordcursor.moveToNext());
     }
 
-    //若包含用户自定义黑名单则处理
+    //若包含用户自定义黑名单，关键字或者贝叶斯模块判断为垃圾短信则处理
     public void dealtrash() {
         if (trash) {
-            notificationManager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+            notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             showNotification();
-            System.out.print("trash========true \n");
-          //  Intent it = new Intent(context, ShowDialog.class);
-          //  it.putExtra("smsNumber", SmsNumber);
-           // it.putExtra("Body", Body);
-          //  it.putExtra("flag", flag);//0代表正常短信，1代表垃圾短信，2代表伪基站短信，3代表诈骗短信，4代表黑名单
-           // it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-           // context.startActivity(it);
         } else {
             //将短信的内容和号码加入到数据库的msg_table表的recievebody,recievenum中
             ContentValues values = new ContentValues();
@@ -201,8 +181,6 @@ public class MsgReceiver extends BroadcastReceiver {
 
     /**
      * 判断短信是否为真实基站发出
-     *
-     * @return
      */
     private boolean isRealBase(String gatenumber) {
         //获取短信中心号码
@@ -223,7 +201,7 @@ public class MsgReceiver extends BroadcastReceiver {
         it.putExtra("Body", Body);
         it.putExtra("flag", flag);    //0代表正常短信，1代表垃圾短信，2代表伪基站短信，3代表诈骗短信，4代表黑名单
         it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, it,  PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, it, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification notification = new Notification.Builder(context)
                 .setContentTitle("垃圾短信")
                 .setContentText(Body)
@@ -231,13 +209,14 @@ public class MsgReceiver extends BroadcastReceiver {
                 .setContentIntent(pendingIntent)
                 .setWhen(System.currentTimeMillis())
                 .build();
-        notificationManager.notify(NOTIFICATION,notification);
+        notificationManager.notify(NOTIFICATION, notification);
     }
 
 
     public Object getSystemService(String name) {
         return context.getSystemService(name);
     }
+
     /**
      * 子线程  用来运算本地贝叶斯模块
      *
@@ -247,18 +226,16 @@ public class MsgReceiver extends BroadcastReceiver {
 
         @Override
         public void run() {
-
             System.out.println("贝叶斯线程开始");
             String text = Body.trim();
             SMSFilterSystem smsFilterSystem = new SMSFilterSystem();
-            System.out.print("最初的Reciver中传入的text是" + text + "\n");
             String resultString = smsFilterSystem.SMSFilter(text);
             if (resultString.equals("good")) {
                 Log.i("config", "贝叶斯判断为正常短信");
                 //do nothing
+                trash = false;
                 flag = 0;
                 System.out.print("Reciever里面的flag======== " + flag);
-
             } else if (resultString.equals("bad")) {
                 Log.i("config", "贝叶斯判断为垃圾短信！");
                 trash = true;
@@ -266,7 +243,7 @@ public class MsgReceiver extends BroadcastReceiver {
                 System.out.print("Reciever里面的flag======== " + flag);
             } else if (resultString.equals("诈骗类")) {
                 trash = true;
-                flag = 3;
+                flag = 1;
                 System.out.print("Reciever里面的flag========" + flag);
             } else if (resultString.equals("广告类")) {
                 trash = true;

@@ -11,8 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.example.administrator.base.blackwhite.SetBad;
-
+import com.example.administrator.base.black.SetBad;
 
 public class ShowDialog extends Activity {
 

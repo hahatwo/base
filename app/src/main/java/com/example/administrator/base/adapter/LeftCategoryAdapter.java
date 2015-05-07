@@ -54,7 +54,7 @@ public class LeftCategoryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         Holder _Holder = null;
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, height / 7);
+       // LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, height / 7);
 
         if (convertView == null) {
             _Holder = new Holder();

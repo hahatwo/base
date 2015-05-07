@@ -2,18 +2,14 @@ package com.example.administrator.base;
 
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
-
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.example.administrator.base.Service.WindowService;
+import com.example.administrator.base.Service.fbService;
 import com.example.administrator.base.framegent.pageFramgent.LefeCategoryFramgent;
 import com.example.administrator.base.framegent.pageFramgent.BasestPage;
 import com.example.administrator.base.framegent.pageFramgent.MsmPage;
@@ -25,7 +21,6 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 public class MainActivity extends SlidingFragmentActivity {
     private ImageButton imgButton;
     private ImageView phone_img, msm_img, basest_img;
-    private FrameLayout phonePage_layout, msmPage_layout, basestPage_layout;
     private PhonePage phonePage;
     private MsmPage msmPage;
     private BasestPage basestPage;
@@ -40,12 +35,13 @@ public class MainActivity extends SlidingFragmentActivity {
         DataBaseHelper dbHelper = new DataBaseHelper(MainActivity.this,
                 "FakeBase");
         // 只有调用了databasehelper对象的getreadabledatabase（）方法或是getwriteabledatabase方法才会创建或打开数据库
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
+        //SQLiteDatabase db = dbHelper.getReadableDatabase();
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         initSlidingMenu();
         initView();
-        initvaliData();
+        Intent intent = new Intent(MainActivity.this, fbService.class);
+        startService(intent);
+        // initvaliData();
         initListener();
     }
 
@@ -66,7 +62,6 @@ public class MainActivity extends SlidingFragmentActivity {
         // 设置左边菜单打开后的视图界面
         setBehindContentView(R.layout.left_content);
         getSupportFragmentManager().beginTransaction().replace(R.id.left_content_id, new LefeCategoryFramgent()).commit();
-
     }
 
     private void initView() {
@@ -79,9 +74,8 @@ public class MainActivity extends SlidingFragmentActivity {
     }
 
     private void initvaliData() {
-        // Intent intent=new Intent(MainActivity.this, WindowService.class);
-        // startService(intent);
-
+        Intent intent = new Intent(MainActivity.this, fbService.class);
+        startService(intent);
     }
 
 
@@ -104,6 +98,9 @@ public class MainActivity extends SlidingFragmentActivity {
             fragmentTransaction.replace(R.id.frame_content1, basestPage);
             //事务管理提交
             fragmentTransaction.commit();
+            // basest_img.setImageResource(R.drawable.base_before);
+            //   msm_img.setImageResource(R.drawable.sms_before);
+            // phone_img.setImageResource(R.drawable.phone_after);
 
 
         }
@@ -122,6 +119,9 @@ public class MainActivity extends SlidingFragmentActivity {
             fragmentTransaction.replace(R.id.frame_content1, msmPage);
             //事务管理提交
             fragmentTransaction.commit();
+            // basest_img.setImageResource(R.drawable.base_before);
+            // msm_img.setImageResource(R.drawable.sms_after);
+            // phone_img.setImageResource(R.drawable.phone_before);
         }
     }
 
@@ -135,16 +135,17 @@ public class MainActivity extends SlidingFragmentActivity {
             FragmentTransaction fragmentTransaction = MainActivity.this.getSupportFragmentManager().beginTransaction();
             //替换当前的页面
             fragmentTransaction.replace(R.id.frame_content1, phonePage);
-
             //事务管理提交
             fragmentTransaction.commit();
+            // basest_img.setImageResource(R.drawable.base_after);
+            //  msm_img.setImageResource(R.drawable.sms_before);
+            //  phone_img.setImageResource(R.drawable.phone_before);
         }
     }
 
 
     // 进行侧滑界面打开与关闭
     class MyLeftCategoryListener implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
             toggle();
@@ -168,7 +169,6 @@ public class MainActivity extends SlidingFragmentActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }*/
 }

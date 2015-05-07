@@ -37,8 +37,6 @@ public class ClassConditionalProbability {
         //返回给定分类中包含关键字／词的训练文本的数目
         System.out.print("短信中包含了" + x + "的短语");
         float Nxc = tdm.getCountContainKeyOfClassification(c, x);
-
-
         System.out.print("短信中包含了" + Nxc + "个关键词");
         //返回训练文本集中在给定分类下的训练文本数目
         float Nc = tdm.getTrainingFileCountOfClassification(c);

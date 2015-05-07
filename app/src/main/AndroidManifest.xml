@@ -36,19 +36,23 @@
     <application
         android:name="com.example.administrator.base.location.LocationApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/fft"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.administrator.base.blackwhite.SetBad"
+            android:name="com.example.administrator.base.black.SetBad"
             android:label=" "
-            android:logo="@drawable/biz_navigation_tab_local_news"
+            android:logo="@drawable/fft"
             android:parentActivityName="com.example.administrator.base.MainActivity"
             android:theme="@style/Theme.Base.AppCompat.Light.DarkActionBar" />
         <activity
-            android:name="com.example.administrator.base.blackwhite.BadSms"
+            android:name=".AboutActivity"
+            android:parentActivityName="com.example.administrator.base.MainActivity">
+        </activity>
+        <activity
+            android:name="com.example.administrator.base.black.BadSms"
             android:label=" "
-            android:logo="@drawable/biz_navigation_tab_local_news"
+            android:logo="@drawable/fft"
             android:parentActivityName="com.example.administrator.base.MainActivity"
             android:theme="@style/Theme.Base.AppCompat.Light.DarkActionBar" />
         <activity
@@ -69,13 +73,14 @@
             </intent-filter>
         </receiver>
 
+        <service android:name="com.example.administrator.base.Service.fbService" />
         <service android:name="com.example.administrator.base.Service.WindowService" />
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2"></action>
+                <action android:name="com.baidu.location.service_v2.2" />
             </intent-filter>
         </service>
 
@@ -85,14 +90,15 @@
 
         <activity
             android:name="com.example.administrator.base.location.LocationMainActivity"
-            android:label="@string/title_activity_location_main"></activity>
+            android:label="@string/title_activity_location_main"
+            android:parentActivityName="com.example.administrator.base.MainActivity" />
         <activity android:name="com.example.administrator.base.location.LocationActivity" />
         <activity android:name="com.example.administrator.base.location.NotifyActivity" />
         <activity android:name="com.example.administrator.base.location.GeoFenceActivity" />
         <activity android:name="com.example.administrator.base.location.QuestActivity" />
         <activity
             android:name="com.example.administrator.base.location.MapLocationActivity"
-            android:label="@string/title_activity_map_location"></activity>
+            android:label="@string/title_activity_map_location" />
     </application>
 
 </manifest>

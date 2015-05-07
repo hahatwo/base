@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.example.administrator.base.DataBaseHelper;
 import com.example.administrator.base.R;
-import com.example.administrator.base.blackwhite.SetBad;
+import com.example.administrator.base.black.SetBad;
 
 import java.util.ArrayList;
 import java.util.HashMap;

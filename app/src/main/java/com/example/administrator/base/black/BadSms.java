@@ -37,25 +37,18 @@ public class BadSms extends Activity {
         try {
             Cursor cursor = db.rawQuery("SELECT * FROM msg_table", null);
             cursor.moveToFirst();
-
             do {
                 if (cursor.getCount() > 0) {
                     String number = cursor.getString(cursor.getColumnIndex("recievenum"));
                     String body = cursor.getString(cursor.getColumnIndex("recievebody"));
                     String flagstr = cursor.getString(cursor.getColumnIndex("flag"));
                     int flag = Integer.parseInt(flagstr);
-                    if (clickfrom == 0) {
-                        HashMap<String, String> map = new HashMap<String, String>();
-                        map.put("number", number);
-                        map.put("body", body);
-                        dataList.add(map);
-                    } else if (flag == clickfrom) {
+                    if (flag == clickfrom - 1) {
                         HashMap<String, String> map = new HashMap<String, String>();
                         map.put("number", number);
                         map.put("body", body);
                         dataList.add(map);
                     }
-
                 }
             } while (cursor.moveToNext());
 
@@ -72,7 +65,6 @@ public class BadSms extends Activity {
         //添加并且显示
         list.setAdapter(adapter);
         list.setOnItemLongClickListener(new DeleteListener());
-
     }
 
 

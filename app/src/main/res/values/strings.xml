@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">base</string>
+    <string name="app_name">智信</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="left_category_name_history">历史记录</string>
     <string name="left_category_ename_history">History</string>
-
+    <string name="about">本软件持续完善中，bug正在调试中
+    来自智信</string>
     <array name="array_left_category_name">
-        <item>定位</item>
-        <item>伪基站记录</item>
-        <item>拦截短信记录</item>
+        <item>设置</item>
         <item>我的备份</item>
+        <item>拦截短信记录</item>
+        <item>伪基站记录</item>
         <item>黑名单</item>
         <item>关键字</item>
-        <item>设置</item>
+        <item>定位</item>
     </array>
     <array name="array_left_category_ename">
         <item>History</item>
@@ -82,5 +83,6 @@
     <string name="setbadtext">自定义拦截设置</string>
     <string name="title_activity_location_main">LocationMainActivity</string>
     <string name="title_activity_map_location">MapLocationActivity</string>
+    <string name="title_activity_about">AboutActivity</string>
 
 </resources>

@@ -28,7 +28,7 @@ public class SMSFilterSystem {
         System.out.println("贝叶斯结果----" + result.classification);
         System.out.println("两个类别的比例----" + result.proportion);
         System.out.println("朴素贝叶斯的结论---文本属于：[" + result.classification + "]....概率为：" + result.probility);
-        //3.基于最小风险进行判定  如果两个类别概率倍数关系为3------>直接判定，否则进入在过滤模块
+        //3.基于最小风险进行判定  如果两个类别概率倍数关系为3------>直接判定，否则进入再过滤模块
 
         if (result.proportion > 2) {
             System.out.println("特征明显直接判断!");

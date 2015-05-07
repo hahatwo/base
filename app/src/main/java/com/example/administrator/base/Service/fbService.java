@@ -2,6 +2,9 @@ package com.example.administrator.base.Service;
 
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -14,12 +17,18 @@ import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.widget.Toast;
 
+import com.example.administrator.base.R;
+import com.example.administrator.base.ShowDialog;
+
 public class fbService extends Service {
     boolean lacchange = false, istimeover = false;
     GsmCellLocation gsmCellLocation;
     GsmCellLocation locationuse;
     long signaltime = 0, lactime = 0;
     boolean isbasereal = true;
+    Context context;
+    private int NOTIFICATION = R.string.notificain;
+    private NotificationManager notificationManager;
     private int test1 = 0; // 信号强度跳变
     private int test2 = 0; // 信号强度太大
     private int test3 = 0; // 频繁的Lac变化
@@ -38,11 +47,12 @@ public class fbService extends Service {
 
     @Override
     public void onCreate() {
-
+        context = this.getApplicationContext();
         settest5();    //判断短信中心号码是否变化
         signaltime = System.currentTimeMillis();// 获取服务创建时的时间
         /********************************************************************************************************************************  */
         tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         locationuse = (GsmCellLocation) tm.getCellLocation();
         lacnow = locationuse.getLac();// 当前Lac
         lacbefore = lacnow;
@@ -90,7 +100,7 @@ public class fbService extends Service {
                             fbService.this,
                             "信号" + String.valueOf(signalnow) + "\n" + "LAC:" + String.valueOf(lacnow) + "\n" + "CID: " + String.valueOf(cidnow),
                             Toast.LENGTH_SHORT);// 测试用于显示
-                    toast.show();
+                    // toast.show();
                 } else {
                     Toast toast1 = Toast.makeText(getApplicationContext(),
                             "该手机不是GSM", Toast.LENGTH_SHORT);
@@ -117,7 +127,8 @@ public class fbService extends Service {
                     test3 = 60;   //test3 表示频繁的lac变化
                     // 在20秒之内变回原来的Lac，说明有问题
                     if (lacnow == lacbefore) {
-                        showDialog();
+                       // showNotification();
+                        //showDialog();
                     }
                     lacbefore = lacnow;
                 }
@@ -160,7 +171,7 @@ public class fbService extends Service {
             public void run() {
                 // 在此处添加执行的代码
                 go();
-                // isdanger();
+                isdanger();
                 handler.postDelayed(this, 3000);// 1000ms是延时时长,每隔1000执行一次.
             }
         };
@@ -178,6 +189,28 @@ public class fbService extends Service {
         //判断总的可疑度
         System.out.println("test1=" + test1 + " test2=" + test2 + " test3="
                 + test3 + " test4=" + test4 + "test5" + test5);
+
+    }
+
+    private void showNotification() {
+        Intent it = new Intent(context, ShowDialog.class);
+        // it.putExtra("smsNumber", SmsNumber);
+        // it.putExtra("Body", Body);
+        // it.putExtra("flag", flag);    //0代表正常短信，1代表垃圾短信，2代表伪基站短信，3代表诈骗短信，4代表黑名单
+        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, it, PendingIntent.FLAG_UPDATE_CURRENT);
+        Notification notification = new Notification.Builder(context)
+                .setContentTitle("检测到伪基站劫持！！！")
+                .setSmallIcon(android.R.drawable.ic_notification_overlay)
+                .setContentIntent(pendingIntent)
+                .setWhen(System.currentTimeMillis())
+                .build();
+        notificationManager.notify(NOTIFICATION, notification);
+        test1 = 0;
+        test2 = 0;
+        test3 = 0;
+        test4 = 0;
+        test5 = 0;
     }
 
     /**
@@ -196,8 +229,6 @@ public class fbService extends Service {
             time = System.currentTimeMillis();
             return time;
         }
-
-
     }
 
 
@@ -220,7 +251,8 @@ public class fbService extends Service {
         if (cidnow == 10 || lacnow == 65535 || lacnow == 0 || lacnow == -1
                 || cidnow == -1) {
             test4 = 100;  //test4 表示可疑的Cid或者Lac
-            showDialog();
+            //showDialog();
+            showNotification();
         }
         if (lacnow >= 1000 && lacnow <= 9999) {
             test4 = 60;
@@ -231,9 +263,10 @@ public class fbService extends Service {
      * ****总体评估可疑度**********************************************************************************************
      */
     public void isdanger() {
-        if (test1 + test2 + test3 + test4 >= 100) {
+        if (test1 + test2 + test3 + test4 >= 120) {
             System.out.println("dangerous!!!!!!!!!!!!!!!!!!!!!");
-            showDialog();
+            showNotification();
+            //showDialog();
         } else {
             test4 = 0;
         }

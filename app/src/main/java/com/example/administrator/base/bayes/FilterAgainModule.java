@@ -14,8 +14,6 @@ import java.util.regex.Pattern;
  * 3.检测短信中是否含有电话号码
  * 4.检测短信中的标点符号是否多于3个
  * 5.检测短信中是否含有要求回复的信息
- *
- * @author chongrui
  */
 public class FilterAgainModule {
 

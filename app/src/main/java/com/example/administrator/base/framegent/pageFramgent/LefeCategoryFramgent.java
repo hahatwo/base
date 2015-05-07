@@ -1,24 +1,21 @@
 package com.example.administrator.base.framegent.pageFramgent;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.example.administrator.base.AboutActivity;
 import com.example.administrator.base.ItemCategoryModel;
 import com.example.administrator.base.R;
 import com.example.administrator.base.adapter.LeftCategoryAdapter;
-import com.example.administrator.base.blackwhite.BadSms;
-import com.example.administrator.base.blackwhite.SetBad;
+import com.example.administrator.base.black.BadSms;
+import com.example.administrator.base.black.SetBad;
 import com.example.administrator.base.location.LocationMainActivity;
 
 import java.util.ArrayList;
@@ -39,8 +36,6 @@ public class LefeCategoryFramgent extends Fragment {
     private String[] left_category_ename;
     private Integer[] left_category_img;
     private List<ItemCategoryModel> mLists;
-
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle saveInstanceState) {
         if (left_View == null) {
@@ -61,9 +56,9 @@ public class LefeCategoryFramgent extends Fragment {
     private void initvaliData() {
         left_Context = left_View.getContext();
         // 进行模拟和初始化需要进行服务类别设置的数据
-        left_category_img = new Integer[]{R.drawable.biz_navigation_tab_local_news, R.drawable.biz_navigation_tab_micro,
+        left_category_img = new Integer[]{ R.drawable.ic_menu_settings_holo_light, R.drawable.biz_navigation_tab_micro,
                 R.drawable.biz_navigation_tab_news, R.drawable.biz_navigation_tab_pics, R.drawable.biz_navigation_tab_ties,
-                R.drawable.biz_navigation_tab_ugc, R.drawable.ic_menu_settings_holo_light};
+                R.drawable.biz_navigation_tab_ugc,R.drawable.biz_navigation_tab_local_news};
 
         left_category_name = left_Context.getResources().getStringArray(R.array.array_left_category_name);
         left_category_ename = left_Context.getResources().getStringArray(R.array.array_left_category_ename);
@@ -96,35 +91,45 @@ public class LefeCategoryFramgent extends Fragment {
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener {
 
+
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             intent1 = new Intent(left_Context, SetBad.class);
             intent2 = new Intent(left_Context, BadSms.class);
             switch (position) {
+                case 6:
+                    //定位
+                    left_Context.startActivity(new Intent(left_Context, LocationMainActivity.class));
+                    break;
+                case 1:
+                    //备份
+                   // break;
                 case 2:
+                    //垃圾短信记录
                     intent2.putExtra("clickfrom", 2);
                     left_Context.startActivity(intent2);
                     break;
                 case 3:
+                    //伪基站记录
                     intent2.putExtra("clickfrom", 3);
                     left_Context.startActivity(intent2);
                     break;
                 case 4:
+                    //黑名单
                     intent1.putExtra("numorword", NUMBER);
                     left_Context.startActivity(intent1);
                     break;
                 case 5:
+                    //关键字
                     intent1.putExtra("numorword", WORD);
                     left_Context.startActivity(intent1);
                     break;
-                case 6:
-                    left_Context.startActivity(new Intent(left_Context, LocationMainActivity.class));
+                case 0:
+                    //about
+                    left_Context.startActivity(new Intent(left_Context, AboutActivity.class));
                     break;
             }
-
         }
     }
-
-
 }
